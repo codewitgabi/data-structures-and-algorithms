@@ -99,6 +99,37 @@ class AdvancedBinarySearchTree:
         else:
             return True
 
+    def delete(self, value: int):
+        if value < self.data:
+            if self.left is not None:
+                self.left = self.left.delete(value)
+        elif value > self.data:
+            if self.right is not None:
+                self.right = self.right.delete(value)
+        else:
+            # Case 1: Node has no children
+            if self.left is None and self.right is None:
+                return None
+
+            # Case 2: Node has only one child
+            if self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+
+            # Case 3: Node has two children
+            min_right = self.right.find_min()
+            self.data = min_right.data
+            self.right = self.right.delete(min_right.data)
+
+        return self
+
+    def find_min(self):
+        current = self
+        while current.left is not None:
+            current = current.left
+        return current
+
 
 # advanced_tree = AdvancedBinarySearchTree(5)
 # advanced_tree.insert(5)
@@ -118,7 +149,6 @@ class AdvancedBinarySearchTree:
 # print(advanced_tree.right.right.left.data)
 # print(advanced_tree.right.right.right.data)
 
-
 advanced_tree = AdvancedBinarySearchTree(10)
 advanced_tree.insert(5)
 advanced_tree.insert(4)
@@ -135,3 +165,5 @@ advanced_tree.insert(12)
 # advanced_tree.preorder_traversal()
 
 print(advanced_tree.find(1))
+advanced_tree.delete(10)
+advanced_tree.preorder_traversal()
