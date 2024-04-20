@@ -16,7 +16,6 @@ class BinaryTree:
             else:
                 self.right = BinaryTree(value)
 
-
     def inorder_traversal(self):
         if self.left:
             self.left.inorder_traversal()
@@ -29,7 +28,7 @@ class BinaryTree:
         print(self.data)
         if self.left:
             self.left.preorder_traversal()
-        
+
         if self.right:
             self.right.preorder_traversal()
 
@@ -41,6 +40,7 @@ class BinaryTree:
             self.right.postorder_traversal()
 
         print(self.data)
+
 
 tree = BinaryTree(15)
 tree.insert(12)
