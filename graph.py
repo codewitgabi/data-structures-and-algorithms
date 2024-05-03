@@ -34,9 +34,14 @@ import numpy as np
 
 
 class AdjacencyListGraphNode:
-    def __init__(self,
-                 vertices: List[str | int],
-                 edges: Union[List[Union[List[str | int], Tuple[str | int]]], Tuple[Union[List[str | int], Tuple[str | int]]]]) -> None:
+    def __init__(
+        self,
+        vertices: List[str | int],
+        edges: Union[
+            List[Union[List[str | int], Tuple[str | int]]],
+            Tuple[Union[List[str | int], Tuple[str | int]]],
+        ],
+    ) -> None:
         self.vertices = vertices
         self.edges = edges
 
@@ -52,35 +57,37 @@ class AdjacencyListGraphNode:
 
 
 graph = AdjacencyListGraphNode(
-    ["a", "b", "c", "d", "e"],
-    [["b", "c"], ["a", "d"], ["a", "d"], ["e"], ["d"]]
+    ["a", "b", "c", "d", "e"], [["b", "c"], ["a", "d"], ["a", "d"], ["e"], ["d"]]
 )
 
 # print(graph)
 
 
 class AdjacencyMatrixGraphNode:
-    def __init__(self, vertices: List[str | int],
-                 edges: Union[List[Union[List[str | int], Tuple[str | int]]], Tuple[Union[List[str | int], Tuple[str | int]]]]) -> None:
+    def __init__(
+        self,
+        vertices: List[str | int],
+        edges: Union[
+            List[Union[List[str | int], Tuple[str | int]]],
+            Tuple[Union[List[str | int], Tuple[str | int]]],
+        ],
+    ) -> None:
         self.vertices = vertices
         self.edges = edges
 
     @property
     def data(self) -> dict:
-        matrix = np.zeros(
-            (len(self.vertices), len(self.vertices)), dtype=np.int32)
+        matrix = np.zeros((len(self.vertices), len(self.vertices)), dtype=np.int32)
 
         for rIndex, row in enumerate(matrix):
             for cIndex, col in enumerate(row):
                 if self.vertices[cIndex] in self.edges[rIndex]:
                     matrix[rIndex, cIndex] = 1
 
-        
         return matrix
 
     def __repr__(self) -> str:
-        matrix = np.zeros(
-            (len(self.vertices), len(self.vertices)), dtype=np.int32)
+        matrix = np.zeros((len(self.vertices), len(self.vertices)), dtype=np.int32)
         outputMatrix = "[\n"
 
         for rIndex, row in enumerate(matrix):
@@ -89,16 +96,14 @@ class AdjacencyMatrixGraphNode:
                     matrix[rIndex, cIndex] = 1
 
             outputMatrix += f"    {matrix[rIndex]}\n"
-        
+
         outputMatrix += "]"
-        
+
         return outputMatrix
 
 
-
 graph = AdjacencyMatrixGraphNode(
-    ["a", "b", "c", "d", "e"],
-    [["b", "c"], ["a", "d"], ["a", "d"], ["e"], ["d"]]
+    ["a", "b", "c", "d", "e"], [["b", "c"], ["a", "d"], ["a", "d"], ["e"], ["d"]]
 )
 
 print(graph)

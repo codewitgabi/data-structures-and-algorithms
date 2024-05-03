@@ -51,17 +51,35 @@ class AdvancedLinkedList:
         else:
             self.next = AdvancedLinkedList(data)
 
-    def index(self, data: int) -> int:
+    def display(self):
+        arr = []
+
+        while self is not None:
+            arr.append(self.data)
+            self = self.next
+
+        print(f"<LinkedList {arr}>")
+
+    def find(self, data: int) -> int:
         iteration: int = 0
 
         while self is not None:
-            if self.data != data:
-                iteration += 1
-                self = self.next
-            else:
+            if self.data == data:
                 return iteration
+            iteration += 1
+            self = self.next
 
         return -1
+
+    def get_node(self, index: int):
+        idx: int = 0
+
+        while self:
+            if index == idx:
+                return self
+
+            idx += 1
+            self = self.next
 
     def remove(self, data: int):
         if self.data == data:
@@ -74,39 +92,166 @@ class AdvancedLinkedList:
         else:
             return self.next.remove(data)
 
-    def __repr__(self):
-        arr = []
+    def length(self):
+        count: int = 0
 
-        while self is not None:
-            arr.append(self.data)
+        while self:
+            self = self.next
+            count += 1
+
+        return count
+
+    def reverse(self):
+        size: int = self.length()
+
+        for i in range(size // 2):
+            left: AdvancedLinkedList = self.get_node(i)
+            right: AdvancedLinkedList = self.get_node(size - i - 1)
+            temp = left.data
+
+            left.data = right.data
+            right.data = temp
+
+    def insert_at(self, index: int, data: int):
+        idx: int = 0
+
+        while self.next:
+            if index == idx:
+                cur_node_data = self.data
+                next_node = self.next
+
+                self.data = data
+                self.next = AdvancedLinkedList(cur_node_data)
+                self.next.next = next_node
+
+                return
+
+            idx += 1
+            self = self.next
+        else:
+            self.next = AdvancedLinkedList(data)
+
+    def insert_at_beginning(self, data):
+        cur_node_data = self.data
+        cur_next_node = self.next
+        self.data = data
+        self.next = AdvancedLinkedList(cur_node_data)
+        self.next.next = cur_next_node
+
+    def insert_at_end(self, data):
+        # go to the end of the list
+
+        while self.next:
             self = self.next
 
-        return f"<LinkedList {arr}>"
+        self.next = AdvancedLinkedList(data)
+
+    def is_empty(self):
+        return self is None
+
+    def empty(self):
+        self.next = None
+        self = None
+
+    def is_present(self, data):
+        while self:
+            if self.data == data:
+                return "Found"
+            self = self.next
+        else:
+            return "Not found"
+
+
+class DoublyLinkedList:
+    def __init__(self, data=None):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+    def append(self, value):
+        if self.next is None:
+            self.next = DoublyLinkedList(value)
+            self.next.prev = self
+        else:
+            self.next.append(value)
+
+    def prepend(self, value):
+        if self.prev is None:
+            self.prev = DoublyLinkedList(value)
+            self.prev.next = self
+        else:
+            self.prev.prepend(value)
+
+    def find(self, value):
+        """Returns first occurence of the value"""
+
+        cur = self
+        count: int = 0
+
+        while cur.prev is not None:
+            cur = cur.prev
+
+        while cur is not None:
+            if cur.data == value:
+                return count
+
+            count += 1
+            cur = cur.next
+
+        return -1
+
+    def pop(self):
+        # move to the beginning of the list
+
+        while self.prev is not None:
+            self = self.prev
+
+        # move to the end and remove last element
+
+        while self.next is not None:
+            self = self.next
+
+        if self.prev:
+            self.prev.next = None
+        else:
+            # if node is the last node
+            self.data = None
+            self = None
+
+    def remove(self, value):
+        # go to beginning of linked list
+
+        while self.prev is not None:
+            self = self.prev
+
+        # find if value matches node data
+
+        while self is not None:
+            if self.data == value:
+                print("Found")
+                if self.prev:
+                    print(self.prev.data)
+                    self.prev.next = self.next
+                else:
+                    self = None
+            self = self.next
+
+    def __repr__(self) -> str:
+        # go to beginning of list
+
+        cur = self
+        arr = []
+
+        while cur.prev is not None:
+            cur = cur.prev
+
+        # move next till end of list
+
+        while cur is not None and cur.data is not None:
+            arr.append(cur.data)
+            cur = cur.next
+
+        return f"<DoublyLinkedList {arr}>"
 
     def __str__(self) -> str:
         return self.__repr__()
-
-
-advanced_instance = AdvancedLinkedList(3)
-advanced_instance.insert(4)
-advanced_instance.insert(8)
-advanced_instance.insert(5)
-advanced_instance.insert(7)
-advanced_instance.insert(2)
-
-
-# print(advanced_instance.data)
-# print(advanced_instance.next.data)
-# print(advanced_instance.next.next.data)
-# print(advanced_instance.next.next.next.data)
-
-advanced_instance.remove(2)
-advanced_instance.remove(3)
-
-print(advanced_instance)
-
-# print(advanced_instance.index(3))
-# print(advanced_instance.index(4))
-# print(advanced_instance.index(8))
-# print(advanced_instance.index(2))
-# print(advanced_instance.index(0))
