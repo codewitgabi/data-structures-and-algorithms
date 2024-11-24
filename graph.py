@@ -80,7 +80,7 @@ class AdjacencyMatrixGraphNode:
         matrix = np.zeros((len(self.vertices), len(self.vertices)), dtype=np.int32)
 
         for rIndex, row in enumerate(matrix):
-            for cIndex, col in enumerate(row):
+            for cIndex, _ in enumerate(row):
                 if self.vertices[cIndex] in self.edges[rIndex]:
                     matrix[rIndex, cIndex] = 1
 
