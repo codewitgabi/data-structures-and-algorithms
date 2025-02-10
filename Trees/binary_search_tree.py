@@ -85,6 +85,22 @@ class BinarySearchTree:
         else:
             return self.__search(node.right, target)
 
+    def min(self):
+        current_node = self.parent
+
+        while current_node.left:
+            current_node = current_node.left
+
+        return current_node
+
+    def max(self):
+        current_node = self.parent
+
+        while current_node.right:
+            current_node = current_node.right
+
+        return current_node
+
 
 bst = BinarySearchTree()
 
@@ -105,3 +121,7 @@ bst.insert(32)
 
 # print(bst.search(12))
 # print(bst.search(10))
+
+print(bst.min().data)
+print(bst.max().data)
+
