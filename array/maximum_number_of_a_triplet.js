@@ -1,8 +1,8 @@
 // @ts-check
 
 /**
- *
  * @param {Array<number>} array
+ * @returns {number}
  */
 function maximumNumberOfATriplet(array) {
   // Find first three maximum numbers
@@ -12,7 +12,7 @@ function maximumNumberOfATriplet(array) {
   let third = -100_000_000_000;
 
   for (let i = 0; i < array.length; i++) {
-    const value = array[i]
+    const value = array[i];
 
     if (value > first) {
       third = second;

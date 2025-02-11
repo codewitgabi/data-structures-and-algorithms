@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  *
  * @param {Array<number>} array
