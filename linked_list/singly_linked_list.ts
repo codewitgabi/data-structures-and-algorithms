@@ -107,7 +107,7 @@ class LinkedList {
   /**
    * @description Remove the last element from a linked list
    */
-  delete() {
+  deleteFromEnd() {
     // Check if there is a head node
 
     if (!this.head) {
@@ -136,6 +136,65 @@ class LinkedList {
   }
 
   /**
+   * @description Remove the first element from a linked list
+   * @returns {void}
+   */
+  deleteFromBeginning(): void {
+    // Check if there is a head node
+
+    if (!this.head) {
+      return;
+    }
+
+    this.head = this.head.next;
+  }
+
+  /**
+   * @description Remove a node from nth position
+   * @param {number} n The position of the node to be removed
+   * @returns {void}
+   */
+  deleteFromN(n: number): void {
+    let index: number = 0;
+
+    // Check if there is a head node
+
+    if (!this.head) {
+      return;
+    }
+
+    // Check if head is the only node in the linked list.
+
+    if (!this.head.next) {
+      this.head = null;
+      return;
+    }
+
+    // Check if index is zero (meaning the first node is to be deleted)
+
+    if (n === 0) {
+      this.head = this.head.next;
+    }
+
+    let prevNode: DNode | null = this.head;
+    let currentNode: DNode | null = this.head;
+    let nextNode = currentNode.next;
+
+    while (currentNode) {
+      if (index === n) {
+        prevNode!.next = nextNode;
+        currentNode = null;
+        return;
+      }
+
+      index++;
+      prevNode = currentNode;
+      currentNode = currentNode.next;
+      nextNode = currentNode?.next ?? null;
+    }
+  }
+
+  /**
    * @description Logs all items in the linked list to the console
    * @returns {void}
    */
@@ -144,13 +203,13 @@ class LinkedList {
     let repr = "";
 
     while (currentNode) {
-      repr += `${currentNode.data} -> `
+      repr += `${currentNode.data} -> `;
       currentNode = currentNode.next;
     }
 
     repr += "null";
 
-    console.log(repr)
+    console.log(repr);
   }
 
   /**
