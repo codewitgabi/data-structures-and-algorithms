@@ -106,5 +106,5 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "includes": ["linked_list", "sorting-algorithms"]
+  "includes": ["linked_list", "sorting-algorithm", "array", "searching-algorithms"]
 }
